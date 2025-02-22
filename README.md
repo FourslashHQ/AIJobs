@@ -1,70 +1,145 @@
-# Getting Started with Create React App
+# AI Jobs Portal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern job board application focused on AI and technology positions, built with React and Material-UI. The application aggregates job listings from leading AI companies through the Ashby API.
 
-## Available Scripts
+🔗 [Live Demo](https://ai-jobs-tau.vercel.app/)
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+### 🔍 Advanced Job Search
+- Real-time search functionality with instant results
+- Clear search option to reset results
+- Job count display showing available positions
+- Modern and responsive search interface
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 📊 Smart Filtering System
+- Filter by multiple criteria:
+  - Job Type (Full-time, Part-time, Contract)
+  - Location
+  - Experience Level
+  - Department
+  - Remote Options
+- Toggle filters on/off easily
+- Maintains filter state across searches
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 💼 Job Listings
+- Clean, card-based job presentation
+- Essential job details at a glance:
+  - Job Title
+  - Company
+  - Location
+  - Salary Range (when available)
+  - Employment Type
+  - Department
+- Responsive grid layout
 
-### `npm test`
+### 🔄 Sorting Options
+- Multiple sorting criteria:
+  - Alphabetical (A-Z)
+  - Salary (High to Low)
+  - Salary (Low to High)
+- Sort toggle with easy access
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🎨 UI/UX Features
+- Material-UI components for consistent design
+- Responsive layout for all screen sizes
+- Loading states and error handling
+- Clean and intuitive interface
+- Dark/Light theme support
 
-### `npm run build`
+## Technical Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Frontend
+- React 18
+- Material-UI v5
+- Axios for API calls
+- Modern ES6+ JavaScript
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### API Integration
+- Ashby API for job listings
+- Real-time data fetching
+- Error handling and retry logic
 
 ### Deployment
+- Vercel for hosting
+- Environment configuration for development and production
+- Optimized build process
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Getting Started
 
-### `npm run build` fails to minify
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/FourslashHQ/AIJobs.git
+cd ai-jobs-portal
+```
+
+2. Install dependencies
+```bash
+npm install
+```
+
+3. Create environment files
+```bash
+# .env
+REACT_APP_ASHBY_API_BASE_URL=https://api.ashbyhq.com/posting-api/job-board
+```
+
+4. Start the development server
+```bash
+npm start
+```
+
+The application will be available at `http://localhost:3000`
+
+### Building for Production
+
+```bash
+npm run build
+```
+
+## Project Structure
+
+```
+ai-jobs-portal/
+├── src/
+│   ├── components/         # React components
+│   │   ├── FilterSidebar.js
+│   │   ├── JobCard.js
+│   │   ├── JobList.js
+│   │   └── SearchBar.js
+│   ├── services/          # API and other services
+│   │   └── api.js
+│   ├── theme/            # Theme configuration
+│   │   └── ThemeContext.js
+│   └── App.js            # Main application component
+├── public/               # Static files
+└── package.json         # Project dependencies and scripts
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Built with [Create React App](https://create-react-app.dev/)
+- UI Components from [Material-UI](https://mui.com/)
+- Job data provided by [Ashby](https://www.ashbyhq.com/)
+
+---
+
+Made with ❤️ by [Fourslash](https://github.com/FourslashHQ)
