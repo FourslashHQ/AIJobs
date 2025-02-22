@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, CardContent, Typography, Box, Chip, useTheme } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import WorkIcon from '@mui/icons-material/Work';
 import BusinessIcon from '@mui/icons-material/Business';
 import PublicIcon from '@mui/icons-material/Public';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, CircularProgress, Button } from '@mui/material';
+import { Box, Typography, CircularProgress } from '@mui/material';
 import JobCard from './JobCard';
 
 const JobList = ({ jobs, loading, error }) => {
