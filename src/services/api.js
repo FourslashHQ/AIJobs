@@ -11,13 +11,16 @@ const COMPANIES = {
   }
 };
 
+const API_BASE_URL = process.env.REACT_APP_ASHBY_API_BASE_URL || 'https://api.ashbyhq.com/posting-api/job-board';
+
 const createAxiosInstance = (boardId) => {
   return axios.create({
-    baseURL: `https://api.ashbyhq.com/posting-api/job-board/${boardId}`,
+    baseURL: `${API_BASE_URL}/${boardId}`,
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
-    }
+    },
+    withCredentials: false // Allow cross-origin requests
   });
 };
 
