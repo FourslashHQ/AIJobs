@@ -42,16 +42,13 @@ const FilterSection = ({ title, icon, children, defaultExpanded = false }) => (
   </Accordion>
 );
 
-const FilterSidebar = ({ jobs, filters, onFilterChange }) => {
+const FilterSidebar = ({ jobs, selectedFilters, onFilterChange, width }) => {
   const theme = useTheme();
 
   // Get unique values for filters from jobs
   const companies = [...new Set(jobs.map(job => job.companyName))].sort();
   const locations = [...new Set(jobs.map(job => job.location))].sort();
   const departments = [...new Set(jobs.filter(job => job.department).map(job => job.department))].sort();
-  const employmentTypes = [...new Set(jobs.filter(job => job.employmentType).map(job => 
-    job.employmentType.replace(/([A-Z])/g, ' $1').trim()
-  ))].sort();
 
   const formatSalary = (value) => `$${value.toLocaleString()}`;
 
@@ -61,21 +58,20 @@ const FilterSidebar = ({ jobs, filters, onFilterChange }) => {
         companies: [],
         locations: [],
         departments: [],
-        employmentTypes: [],
         remote: false,
         salary: [0, 500000]
       });
       return;
     }
 
-    const newFilters = { ...filters };
+    const newFilters = { ...selectedFilters };
 
     if (type === 'remote') {
       newFilters.remote = value;
     } else if (type === 'salary') {
       newFilters.salary = value;
     } else {
-      // Handle array-based filters (companies, locations, departments, employmentTypes)
+      // Handle array-based filters
       const currentValues = newFilters[type] || [];
       if (currentValues.includes(value)) {
         newFilters[type] = currentValues.filter(item => item !== value);
@@ -91,7 +87,7 @@ const FilterSidebar = ({ jobs, filters, onFilterChange }) => {
     <Paper
       elevation={0}
       sx={{
-        width: 280,
+        width: width || 280,
         height: '100vh',
         position: 'sticky',
         top: 0,
@@ -131,7 +127,7 @@ const FilterSidebar = ({ jobs, filters, onFilterChange }) => {
           <FormControlLabel
             control={
               <Switch
-                checked={filters.remote}
+                checked={selectedFilters.remote}
                 onChange={(e) => handleFilterChange('remote', e.target.checked)}
               />
             }
@@ -146,7 +142,7 @@ const FilterSidebar = ({ jobs, filters, onFilterChange }) => {
         >
           <Box sx={{ px: 2 }}>
             <Slider
-              value={filters.salary}
+              value={selectedFilters.salary || [0, 500000]}
               onChange={(_, newValue) => handleFilterChange('salary', newValue)}
               min={0}
               max={500000}
@@ -161,31 +157,10 @@ const FilterSidebar = ({ jobs, filters, onFilterChange }) => {
               color: 'text.secondary',
               fontSize: '0.75rem'
             }}>
-              <span>{formatSalary(filters.salary[0])}</span>
-              <span>{formatSalary(filters.salary[1])}</span>
+              <span>{formatSalary(selectedFilters.salary?.[0] || 0)}</span>
+              <span>{formatSalary(selectedFilters.salary?.[1] || 500000)}</span>
             </Box>
           </Box>
-        </FilterSection>
-
-        <FilterSection 
-          title="Employment Type" 
-          icon={<WorkIcon color="action" />}
-          defaultExpanded={true}
-        >
-          <FormGroup>
-            {employmentTypes.map(type => (
-              <FormControlLabel
-                key={type}
-                control={
-                  <Switch
-                    checked={filters.employmentTypes?.includes(type)}
-                    onChange={() => handleFilterChange('employmentTypes', type)}
-                  />
-                }
-                label={type}
-              />
-            ))}
-          </FormGroup>
         </FilterSection>
 
         <FilterSection 
@@ -198,7 +173,7 @@ const FilterSidebar = ({ jobs, filters, onFilterChange }) => {
                 key={department}
                 control={
                   <Switch
-                    checked={filters.departments?.includes(department)}
+                    checked={selectedFilters.departments?.includes(department)}
                     onChange={() => handleFilterChange('departments', department)}
                   />
                 }
@@ -218,7 +193,7 @@ const FilterSidebar = ({ jobs, filters, onFilterChange }) => {
                 key={company}
                 control={
                   <Switch
-                    checked={filters.companies?.includes(company)}
+                    checked={selectedFilters.companies?.includes(company)}
                     onChange={() => handleFilterChange('companies', company)}
                   />
                 }
@@ -238,7 +213,7 @@ const FilterSidebar = ({ jobs, filters, onFilterChange }) => {
                 key={location}
                 control={
                   <Switch
-                    checked={filters.locations?.includes(location)}
+                    checked={selectedFilters.locations?.includes(location)}
                     onChange={() => handleFilterChange('locations', location)}
                   />
                 }

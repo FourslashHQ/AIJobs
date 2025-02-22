@@ -35,44 +35,62 @@ const fetchJobsForCompany = async (company) => {
       }
     });
     
-    console.log(`Raw API Response for ${company.name}:`, response.data);
-    
     if (!response.data || !Array.isArray(response.data.jobs)) {
       console.error(`Invalid response format for ${company.name}:`, response.data);
       throw new Error(`Invalid response format from API for ${company.name}`);
     }
 
-    // Transform the data to match our application's structure
-    return response.data.jobs
-      .filter(job => {
-        console.log('Processing job:', {
-          id: job.id,
-          title: job.title,
-          isListed: job.isListed
-        });
-        return true; // Show all jobs for now
-      })
-      .map(job => ({
+    console.log(`Total jobs from API for ${company.name}:`, response.data.jobs.length);
+    
+    return response.data.jobs.map(job => {
+      // Parse location carefully
+      let location = '';
+      
+      // First try to get location from job.location
+      if (job.location) {
+        location = job.location;
+      }
+      // Then try to get from address
+      else if (job.address?.postalAddress) {
+        const { addressLocality, addressRegion, addressCountry } = job.address.postalAddress;
+        
+        // Special handling for Tokyo and Singapore
+        if (addressLocality === 'Tokyo') {
+          location = 'Tokyo, Japan';
+        } else if (addressLocality === 'Singapore') {
+          location = 'Singapore';
+        } else if (addressLocality && addressRegion) {
+          location = `${addressLocality}, ${addressRegion}`;
+        } else if (addressLocality) {
+          location = addressLocality;
+        }
+      }
+      
+      // Ensure we have a location
+      location = location || 'Location not specified';
+      
+      console.log(`Job ${job.id} (${job.title}): Location = ${location}`);
+      
+      // Convert employment type to consistent format
+      let employmentType = job.employmentType || 'FULLTIME';
+      employmentType = employmentType.replace(/([A-Z])/g, ' $1').trim();
+      employmentType = employmentType.charAt(0).toUpperCase() + employmentType.slice(1).toLowerCase();
+      
+      return {
         id: job.id || String(Math.random()),
         title: job.title || 'Untitled Position',
         companyName: company.name,
-        location: job.location || 
-          (job.address?.postalAddress ? 
-            `${job.address.postalAddress.addressLocality}, ${job.address.postalAddress.addressRegion}` : 
-            'Location not specified'),
+        location: location,
         remote: Boolean(job.isRemote),
         salary: job.compensation?.compensationTierSummary || 'Salary not specified',
         department: job.department || 'General',
         url: job.jobUrl || job.applyUrl || `https://jobs.ashbyhq.com/${company.boardId}/${job.id}`,
         description: job.descriptionPlain || job.descriptionHtml || '',
-        employmentType: job.employmentType || 'Not specified'
-      }));
-  } catch (error) {
-    console.error(`API Error for ${company.name}:`, {
-      message: error.message,
-      status: error.response?.status,
-      data: error.response?.data
+        employmentType: employmentType
+      };
     });
+  } catch (error) {
+    console.error(`API Error for ${company.name}:`, error);
     throw error;
   }
 };
@@ -92,6 +110,11 @@ export const fetchJobs = async () => {
     const allJobs = jobsArrays.flat();
 
     console.log('Total jobs found across all companies:', allJobs.length);
+    console.log('Jobs by company:', jobsArrays.map((jobs, i) => ({
+      company: Object.values(COMPANIES)[i].name,
+      count: jobs.length
+    })));
+    
     return { jobs: allJobs };
   } catch (error) {
     console.error('Error fetching all jobs:', error);
