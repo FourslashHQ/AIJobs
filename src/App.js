@@ -7,7 +7,8 @@ import {
   IconButton,
   useTheme,
   ListItemIcon,
-  ListItemText
+  ListItemText,
+  Link
 } from '@mui/material';
 import { fetchJobs } from './services/api';
 import FilterSidebar from './components/FilterSidebar';
@@ -222,9 +223,20 @@ function App() {
           mb: 3
         }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="h4" component="h1" sx={{ fontWeight: 500 }}>
-              AI Jobs Portal
-            </Typography>
+            <Link 
+              href="/"
+              sx={{ 
+                textDecoration: 'none',
+                color: 'inherit',
+                '&:hover': {
+                  textDecoration: 'none'
+                }
+              }}
+            >
+              <Typography variant="h4" component="h1" sx={{ fontWeight: 500 }}>
+                AI Jobs Portal
+              </Typography>
+            </Link>
             <Typography 
               variant="body1" 
               sx={{ 
