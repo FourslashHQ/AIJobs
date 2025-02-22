@@ -1,12 +1,16 @@
-import React, { createContext, useContext, useState } from 'react';
-import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import React, { createContext, useContext, useState, useMemo } from 'react';
+import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
-const ThemeContext = createContext();
+const ColorModeContext = createContext({
+  toggleColorMode: () => {},
+  mode: 'light'
+});
 
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
+export const useColorMode = () => {
+  const context = useContext(ColorModeContext);
   if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
+    throw new Error('useColorMode must be used within a ThemeProvider');
   }
   return context;
 };
@@ -14,26 +18,32 @@ export const useTheme = () => {
 export const ThemeProvider = ({ children }) => {
   const [mode, setMode] = useState('light');
 
-  const theme = {
-    mode,
-    colors: {
-      background: mode === 'dark' ? '#121212' : '#ffffff',
-      surface: mode === 'dark' ? '#1e1e1e' : '#f5f5f5',
-      primary: '#007FFF',
-      text: mode === 'dark' ? '#ffffff' : '#000000',
-      textSecondary: mode === 'dark' ? '#b3b3b3' : '#666666',
-    },
-  };
+  const colorMode = useMemo(
+    () => ({
+      mode,
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+      },
+    }),
+    [mode]
+  );
 
-  const toggleTheme = () => {
-    setMode(mode === 'light' ? 'dark' : 'light');
-  };
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+        },
+      }),
+    [mode]
+  );
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <StyledThemeProvider theme={theme}>{children}</StyledThemeProvider>
-    </ThemeContext.Provider>
+    <ColorModeContext.Provider value={colorMode}>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </MuiThemeProvider>
+    </ColorModeContext.Provider>
   );
 };
-
-export default ThemeProvider;
