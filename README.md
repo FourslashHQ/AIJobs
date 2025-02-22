@@ -1,16 +1,42 @@
 # AIJobsNow by Fourslash
 
-AIJobsNow is your premier destination for discovering cutting-edge career opportunities in artificial intelligence, machine learning, and data science. We aggregate and curate job listings from industry leaders like OpenAI and Character, providing a streamlined platform for AI professionals to find their next role.
+AIJobsNow is your premier destination for discovering cutting-edge career opportunities in artificial intelligence, machine learning, and data science. We aggregate and curate job listings from industry leaders like OpenAI and Character, providing a streamlined platform for AI professionals to find their next role. We are actively expanding our job listings and will soon include opportunities from more leading AI companies.
 
 ## Features
 
-- **Real-time Job Listings**: Access the latest AI job opportunities as they become available
-- **Smart Filtering**: Filter jobs by location, company, and remote work options
-- **Comprehensive Search**: Search across job titles, descriptions, and departments
-- **Location Support**: Find opportunities in major tech hubs including Tokyo and Singapore
-- **Salary Information**: View compensation details when available
-- **Modern UI**: Clean, responsive interface with dark/light theme support
-- **Accessibility**: Built with web accessibility standards in mind
+### Advanced Job Search and Discovery
+- **Real-time Job Listings**: Access the latest AI job opportunities as they become available, with instant updates from our partner companies
+- **Smart Filtering System**: 
+  - Filter by multiple companies (OpenAI, Character, and more coming soon)
+  - Location-based filtering including major tech hubs (Tokyo, Singapore, and more)
+  - Remote work options for distributed teams
+  - Department-specific searches for specialized roles
+- **Powerful Search**: Full-text search across job titles, descriptions, and departments with instant results
+
+### Job Information
+- **Comprehensive Job Details**: 
+  - Detailed job descriptions and requirements
+  - Salary information when available
+  - Employment type and work arrangements
+  - Department and team context
+- **Location Support**: 
+  - Global job opportunities
+  - Clear location information for on-site roles
+  - Remote work policy details
+
+### User Experience
+- **Modern Interface**: 
+  - Clean, intuitive design for easy navigation
+  - Responsive layout that works on all devices
+  - Dark/light theme support for comfortable viewing
+- **Accessibility**: 
+  - Built following web accessibility standards
+  - Keyboard navigation support
+  - Screen reader compatible
+- **Performance**: 
+  - Fast loading times
+  - Instant search results
+  - Smooth filtering experience
 
 ## Technology Stack
 
@@ -35,44 +61,6 @@ AIJobsNow is your premier destination for discovering cutting-edge career opport
 - ESLint for code quality
 - Prettier for code formatting
 
-## Getting Started
-
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository
-```bash
-git clone https://github.com/FourslashHQ/AIJobs.git
-cd ai-jobs-portal
-```
-
-2. Install dependencies
-```bash
-npm install
-```
-
-3. Create environment files
-```bash
-# .env
-REACT_APP_ASHBY_API_BASE_URL=https://api.ashbyhq.com/posting-api/job-board
-```
-
-4. Start the development server
-```bash
-npm start
-```
-
-The application will be available at `http://localhost:3000`
-
-### Building for Production
-
-```bash
-npm run build
-```
-
 ## Project Structure
 
 ```
@@ -92,17 +80,12 @@ ai-jobs-portal/
 └── package.json         # Project dependencies and scripts
 ```
 
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+## Coming Soon
+- Integration with more leading AI companies
+- Enhanced filtering options
+- Advanced salary insights
+- Job alert notifications
+- Company profiles and reviews
 
 ## Acknowledgments
 
@@ -110,10 +93,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - UI Components from [Material-UI](https://mui.com/)
 - Job data provided by [Ashby](https://www.ashbyhq.com/)
 
+For partnerships or inquiries, contact us at admin@fourslash.com
+
 ---
 
 Made with ❤️ by [Fourslash](https://github.com/FourslashHQ)
-
-## About Fourslash
-
-Fourslash is committed to connecting talented professionals with opportunities in artificial intelligence. Visit [Fourslash](https://www.fourslash.com) to learn more about our mission to advance the AI industry through strategic talent placement.
