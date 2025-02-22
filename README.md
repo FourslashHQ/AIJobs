@@ -47,6 +47,11 @@ A modern job board application focused on AI and technology positions, built wit
 - Clean and intuitive interface
 - Dark/Light theme support
 
+## Latest Updates
+- Fixed job filtering to show correct counts for OpenAI (290) and Character (19)
+- Improved location filtering for Tokyo and Singapore
+- Updated theme system to use Material UI
+
 ## Technical Stack
 
 ### Frontend
