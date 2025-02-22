@@ -234,7 +234,7 @@ function App() {
               }}
             >
               <Typography variant="h4" component="h1" sx={{ fontWeight: 500 }}>
-                AI Jobs Portal
+                AIJobsNow by Fourslash
               </Typography>
             </Link>
             <Typography 
