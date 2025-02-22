@@ -1,74 +1,39 @@
-# AI Jobs Portal
+# AIJobsNow by Fourslash
 
-A modern job board application focused on AI and technology positions, built with React and Material-UI. The application aggregates job listings from leading AI companies through the Ashby API.
-
-🔗 [Live Demo](https://ai-jobs-tau.vercel.app/)
+AIJobsNow is your premier destination for discovering cutting-edge career opportunities in artificial intelligence, machine learning, and data science. We aggregate and curate job listings from industry leaders like OpenAI and Character, providing a streamlined platform for AI professionals to find their next role.
 
 ## Features
 
-### 🔍 Advanced Job Search
-- Real-time search functionality with instant results
-- Clear search option to reset results
-- Job count display showing available positions
-- Modern and responsive search interface
+- **Real-time Job Listings**: Access the latest AI job opportunities as they become available
+- **Smart Filtering**: Filter jobs by location, company, and remote work options
+- **Comprehensive Search**: Search across job titles, descriptions, and departments
+- **Location Support**: Find opportunities in major tech hubs including Tokyo and Singapore
+- **Salary Information**: View compensation details when available
+- **Modern UI**: Clean, responsive interface with dark/light theme support
+- **Accessibility**: Built with web accessibility standards in mind
 
-### 📊 Smart Filtering System
-- Filter by multiple criteria:
-  - Job Type (Full-time, Part-time, Contract)
-  - Location
-  - Experience Level
-  - Department
-  - Remote Options
-- Toggle filters on/off easily
-- Maintains filter state across searches
-
-### 💼 Job Listings
-- Clean, card-based job presentation
-- Essential job details at a glance:
-  - Job Title
-  - Company
-  - Location
-  - Salary Range (when available)
-  - Employment Type
-  - Department
-- Responsive grid layout
-
-### 🔄 Sorting Options
-- Multiple sorting criteria:
-  - Alphabetical (A-Z)
-  - Salary (High to Low)
-  - Salary (Low to High)
-- Sort toggle with easy access
-
-### 🎨 UI/UX Features
-- Material-UI components for consistent design
-- Responsive layout for all screen sizes
-- Loading states and error handling
-- Clean and intuitive interface
-- Dark/Light theme support
-
-## Latest Updates
-- Fixed job filtering to show correct counts for OpenAI (290) and Character (19)
-- Improved location filtering for Tokyo and Singapore
-- Updated theme system to use Material UI
-
-## Technical Stack
+## Technology Stack
 
 ### Frontend
-- React 18
-- Material-UI v5
-- Axios for API calls
-- Modern ES6+ JavaScript
+- React.js for the UI framework
+- Material UI for component design
+- Styled Components for custom styling
+- Context API for state management
 
 ### API Integration
-- Ashby API for job listings
-- Real-time data fetching
-- Error handling and retry logic
+- Ashby API for job data
+- Axios for API requests
+- Custom middleware for data transformation
 
-### Deployment
-- Vercel for hosting
-- Environment configuration for development and production
-- Optimized build process
+### Performance
+- Optimized search and filtering algorithms
+- Responsive design for all devices
+- Fast page load times
+
+### Development Tools
+- Create React App
+- ESLint for code quality
+- Prettier for code formatting
 
 ## Getting Started
 
@@ -148,3 +113,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 Made with ❤️ by [Fourslash](https://github.com/FourslashHQ)
+
+## About Fourslash
+
+Fourslash is committed to connecting talented professionals with opportunities in artificial intelligence. Visit [Fourslash](https://www.fourslash.com) to learn more about our mission to advance the AI industry through strategic talent placement.
