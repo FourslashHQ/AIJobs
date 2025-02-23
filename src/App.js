@@ -295,28 +295,51 @@ function App() {
                   }
                 }}
               >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Typography variant="h4" component="span" sx={{ fontWeight: 500, color: '#c1ff72' }}>
+                <Box sx={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: 1,
+                  '@media (max-width: 600px)': {
+                    flexDirection: 'column',
+                    alignItems: 'flex-start'
+                  }
+                }}>
+                  <Typography variant="h4" component="span" sx={{ 
+                    fontWeight: 500, 
+                    color: '#c1ff72',
+                    '@media (max-width: 600px)': {
+                      fontSize: '1.25rem'
+                    }
+                  }}>
                     AIJobsNow
                   </Typography>
-                  <Typography variant="h4" component="span" sx={{ fontWeight: 500, color: '#ffffff' }}>
-                    by{' '}
-                  </Typography>
-                  <Link
-                    href="https://fourslash.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    sx={{ 
-                      textDecoration: 'none',
-                      '&:hover': {
-                        textDecoration: 'underline'
-                      }
-                    }}
-                  >
+                  <Box sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: 1,
+                    '@media (max-width: 600px)': {
+                      display: 'none'
+                    }
+                  }}>
                     <Typography variant="h4" component="span" sx={{ fontWeight: 500, color: '#ffffff' }}>
-                      Fourslash
+                      by{' '}
                     </Typography>
-                  </Link>
+                    <Link
+                      href="https://fourslash.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{ 
+                        textDecoration: 'none',
+                        '&:hover': {
+                          textDecoration: 'underline'
+                        }
+                      }}
+                    >
+                      <Typography variant="h4" component="span" sx={{ fontWeight: 500, color: '#ffffff' }}>
+                        Fourslash
+                      </Typography>
+                    </Link>
+                  </Box>
                 </Box>
               </Link>
             </Box>
@@ -329,20 +352,50 @@ function App() {
                 px: 1.5,
                 borderRadius: 1,
                 border: '1px solid',
-                borderColor: 'divider'
+                borderColor: 'divider',
+                '@media (max-width: 600px)': {
+                  fontSize: '0.75rem'
+                }
               }}
             >
               {`${filteredJobs.length} jobs available`}
             </Typography>
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ 
+            display: 'flex', 
+            alignItems: 'center',
+            gap: 1
+          }}>
             <IconButton
               onClick={handleSortClick}
               color="inherit"
               aria-label="sort"
+              sx={{
+                '@media (max-width: 600px)': {
+                  padding: '8px'
+                }
+              }}
             >
               <SortIcon />
             </IconButton>
+            {showScrollTop && (
+              <IconButton
+                onClick={scrollToTop}
+                color="inherit"
+                aria-label="scroll to top"
+                sx={{ 
+                  display: { xs: 'flex', sm: 'none' },
+                  bgcolor: '#c1ff72',
+                  color: '#000000',
+                  padding: '8px',
+                  '&:hover': {
+                    bgcolor: '#9ecc5c'
+                  }
+                }}
+              >
+                <KeyboardArrowUpIcon />
+              </IconButton>
+            )}
           </Box>
         </Box>
 
@@ -392,15 +445,17 @@ function App() {
         />
       </Box>
 
+      {/* Desktop scroll button */}
       {showScrollTop && (
         <Fab
           size="large"
           sx={{
             position: 'fixed',
-            bottom: { xs: 16, sm: 16 },
-            right: { xs: 16, sm: 16 },
+            bottom: 16,
+            right: 16,
             bgcolor: '#c1ff72',
             zIndex: 1000,
+            display: { xs: 'none', sm: 'flex' }, // Hide on mobile since we have the header button
             '&:hover': {
               bgcolor: '#9ecc5c'
             }
