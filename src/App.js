@@ -434,11 +434,10 @@ function App() {
           size="large"
           sx={{
             position: 'fixed',
-            bottom: 16,
+            bottom: { xs: 80, sm: 16 }, 
             right: 16,
             bgcolor: '#c1ff72',
             zIndex: 1000,
-            display: { xs: 'none', sm: 'flex' }, // Hide on mobile since we have the header button
             '&:hover': {
               bgcolor: '#9ecc5c'
             }
