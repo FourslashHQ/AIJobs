@@ -16,7 +16,7 @@ const SearchBar = ({ value, onChange }) => {
     <Paper
       component="form"
       sx={{
-        p: '2px 4px',
+        p: { xs: '2px', sm: '2px 4px' },
         display: 'flex',
         alignItems: 'center',
         width: '100%',
@@ -30,15 +30,16 @@ const SearchBar = ({ value, onChange }) => {
       }}
       elevation={0}
     >
-      <IconButton sx={{ p: '10px', color: 'action.active' }}>
+      <IconButton sx={{ p: { xs: '8px', sm: '10px' }, color: 'action.active' }}>
         <SearchIcon />
       </IconButton>
       <InputBase
         sx={{ 
-          ml: 1, 
+          ml: { xs: 0.5, sm: 1 }, 
           flex: 1,
           '& .MuiInputBase-input': {
-            padding: '8px 0'
+            padding: { xs: '6px 0', sm: '8px 0' },
+            fontSize: { xs: '0.875rem', sm: '1rem' }
           }
         }}
         placeholder="Search jobs..."
@@ -47,7 +48,7 @@ const SearchBar = ({ value, onChange }) => {
       />
       {value && (
         <IconButton 
-          sx={{ p: '10px' }} 
+          sx={{ p: { xs: '8px', sm: '10px' } }} 
           aria-label="clear"
           onClick={handleClear}
         >

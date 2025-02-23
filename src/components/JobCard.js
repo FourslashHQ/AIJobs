@@ -107,7 +107,7 @@ const JobCard = ({ job }) => {
       component="article"
       onClick={handleClick}
       sx={{ 
-        mb: 2,
+        mb: { xs: 1.5, sm: 2 },
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
@@ -125,34 +125,66 @@ const JobCard = ({ job }) => {
           display: 'flex', 
           flexDirection: 'column',
           height: '100%',
-          '&:last-child': { pb: 2 }
+          p: { xs: 1.5, sm: 2 },
+          '&:last-child': { pb: { xs: 1.5, sm: 2 } }
         }}
       >
-        <Box component="header" sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+        <Box component="header" sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 2 }, mb: { xs: 1.5, sm: 2 } }}>
           {getJobIcon(job.title)}
-          <Typography variant="h2" component="h2" gutterBottom sx={{ color: '#c1ff72', mb: 0, fontSize: 'h6.fontSize' }}>
+          <Typography 
+            variant="h2" 
+            component="h2" 
+            gutterBottom 
+            sx={{ 
+              color: '#c1ff72', 
+              mb: 0, 
+              fontSize: { xs: '1rem', sm: 'h6.fontSize' },
+              lineHeight: { xs: 1.2, sm: 1.5 }
+            }}
+          >
             {job.title}
           </Typography>
         </Box>
 
-        <Box component="section" sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, mb: 2 }}>
+        <Box component="section" sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 1, sm: 1.5 }, mb: { xs: 1.5, sm: 2 } }}>
           <Box component="div" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <BusinessIcon fontSize="small" sx={{ color: '#ffffff' }} />
-            <Typography variant="body2" component="p" sx={{ color: '#ffffff' }}>
+            <Typography 
+              variant="body2" 
+              component="p" 
+              sx={{ 
+                color: '#ffffff',
+                fontSize: { xs: '0.875rem', sm: 'body2.fontSize' }
+              }}
+            >
               {job.companyName}
             </Typography>
           </Box>
 
           <Box component="div" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <LocationOnIcon fontSize="small" sx={{ color: '#ffffff' }} />
-            <Typography variant="body2" component="p" sx={{ color: '#ffffff' }}>
+            <Typography 
+              variant="body2" 
+              component="p" 
+              sx={{ 
+                color: '#ffffff',
+                fontSize: { xs: '0.875rem', sm: 'body2.fontSize' }
+              }}
+            >
               {job.location}
             </Typography>
           </Box>
 
           <Box component="div" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <AttachMoneyIcon fontSize="small" sx={{ color: '#ffffff' }} />
-            <Typography variant="body2" component="p" sx={{ color: '#ffffff' }}>
+            <Typography 
+              variant="body2" 
+              component="p" 
+              sx={{ 
+                color: '#ffffff',
+                fontSize: { xs: '0.875rem', sm: 'body2.fontSize' }
+              }}
+            >
               {job.salary}
             </Typography>
           </Box>
@@ -162,10 +194,10 @@ const JobCard = ({ job }) => {
           component="footer"
           sx={{
             display: 'flex',
-            gap: 1,
+            gap: { xs: 0.5, sm: 1 },
             flexWrap: 'wrap',
             mt: 'auto',
-            pt: 1
+            pt: { xs: 0.5, sm: 1 }
           }}
         >
           {job.remote && (
