@@ -255,7 +255,7 @@ function App() {
   };
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default' }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default', flexDirection: { xs: 'column', sm: 'row' } }}>
       <FilterSidebar
         jobs={jobs}
         selectedFilters={selectedFilters}
@@ -266,8 +266,8 @@ function App() {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` }
+          p: { xs: 2, sm: 3 },
+          width: { xs: '100%', sm: `calc(100% - ${DRAWER_WIDTH}px)` }
         }}
       >
         <Box sx={{ 
