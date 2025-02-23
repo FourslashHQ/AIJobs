@@ -1,38 +1,107 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* Container styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
+/* Section styles */
+.section {
+  padding: 80px 0;
+}
+
+/* Card styles */
+.card {
+  background: var(--background-paper);
+  border-radius: 16px;
+  padding: 24px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* Button styles */
+.button {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.button-primary {
+  background: #007AFF;
   color: white;
+  border: none;
 }
 
-.App-link {
-  color: #61dafb;
+.button-primary:hover {
+  background: #0055B3;
 }
 
-@keyframes App-logo-spin {
+.button-secondary {
+  background: transparent;
+  border: 1px solid #007AFF;
+  color: #007AFF;
+}
+
+.button-secondary:hover {
+  background: rgba(0, 122, 255, 0.1);
+}
+
+/* Text styles */
+.heading {
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.subheading {
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+/* Grid layout */
+.grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* Animation utilities */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .section {
+    padding: 48px 0;
+  }
+  
+  .container {
+    padding: 0 16px;
   }
 }

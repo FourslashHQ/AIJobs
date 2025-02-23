@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Grid } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 import JobCard from './JobCard';
 
 const GridContainer = styled(Grid)`
@@ -10,13 +10,21 @@ const GridContainer = styled(Grid)`
 
 const JobGrid = ({ jobs }) => {
   return (
-    <GridContainer container spacing={3}>
+    <Box 
+      component="main"
+      sx={{ 
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+        gap: 3,
+        p: 2
+      }}
+      role="main"
+      aria-label="Job Listings"
+    >
       {jobs.map((job) => (
-        <Grid item xs={12} sm={6} md={4} key={job.id}>
-          <JobCard job={job} />
-        </Grid>
+        <JobCard key={job.id} job={job} />
       ))}
-    </GridContainer>
+    </Box>
   );
 };
 

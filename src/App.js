@@ -8,7 +8,9 @@ import {
   useTheme,
   ListItemIcon,
   ListItemText,
-  Link
+  Link,
+  Fab,
+  Button
 } from '@mui/material';
 import { fetchJobs } from './services/api';
 import FilterSidebar from './components/FilterSidebar';
@@ -18,9 +20,8 @@ import SortIcon from '@mui/icons-material/Sort';
 import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import { useColorMode } from './theme/ThemeContext';
 
 const DRAWER_WIDTH = 280;
@@ -207,7 +208,6 @@ function App() {
         onFilterChange={handleFilterChange}
         width={DRAWER_WIDTH}
       />
-
       <Box
         component="main"
         sx={{
@@ -218,25 +218,47 @@ function App() {
       >
         <Box sx={{ 
           display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center',
+          justifyContent: 'space-between',
+          alignItems: 'center', 
           mb: 3
         }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Link 
-              href="/"
-              sx={{ 
-                textDecoration: 'none',
-                color: 'inherit',
-                '&:hover': {
-                  textDecoration: 'none'
-                }
-              }}
-            >
-              <Typography variant="h4" component="h1" sx={{ fontWeight: 500 }}>
-                AIJobsNow by Fourslash
-              </Typography>
-            </Link>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flex: 1 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', flex: 1 }}>
+              <Link 
+                href="/"
+                sx={{ 
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  '&:hover': {
+                    textDecoration: 'none'
+                  }
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Typography variant="h4" component="span" sx={{ fontWeight: 500, color: '#c1ff72' }}>
+                    AIJobsNow
+                  </Typography>
+                  <Typography variant="h4" component="span" sx={{ fontWeight: 500, color: '#ffffff' }}>
+                    by{' '}
+                  </Typography>
+                  <Link
+                    href="https://fourslash.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{ 
+                      textDecoration: 'none',
+                      '&:hover': {
+                        textDecoration: 'underline'
+                      }
+                    }}
+                  >
+                    <Typography variant="h4" component="span" sx={{ fontWeight: 500, color: '#ffffff' }}>
+                      Fourslash
+                    </Typography>
+                  </Link>
+                </Box>
+              </Link>
+            </Box>
             <Typography 
               variant="body1" 
               sx={{ 
@@ -259,14 +281,6 @@ function App() {
               aria-label="sort"
             >
               <SortIcon />
-            </IconButton>
-            <IconButton 
-              onClick={toggleColorMode}
-              color="inherit"
-              sx={{ ml: 1 }}
-              aria-label="toggle theme"
-            >
-              {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
           </Box>
         </Box>
@@ -318,22 +332,21 @@ function App() {
       </Box>
 
       {showScrollTop && (
-        <IconButton
-          onClick={scrollToTop}
+        <Fab
+          size="large"
           sx={{
             position: 'fixed',
-            bottom: 20,
-            right: 20,
-            bgcolor: 'primary.main',
-            color: 'white',
+            bottom: 16,
+            right: 16,
+            bgcolor: '#c1ff72',
             '&:hover': {
-              bgcolor: 'primary.dark',
-            },
-            zIndex: 1000,
+              bgcolor: '#9ecc5c'
+            }
           }}
+          onClick={scrollToTop}
         >
-          <KeyboardArrowUpIcon />
-        </IconButton>
+          <KeyboardArrowUpIcon sx={{ fontSize: 32, color: '#000000' }} />
+        </Fab>
       )}
     </Box>
   );

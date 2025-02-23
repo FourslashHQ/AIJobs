@@ -25,16 +25,19 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 const FilterSection = ({ title, icon, children, defaultExpanded = false }) => (
   <Accordion defaultExpanded={defaultExpanded}>
     <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
+      expandIcon={<ExpandMoreIcon sx={{ color: '#ffffff' }} />}
       sx={{
         '& .MuiAccordionSummary-content': {
           alignItems: 'center',
           gap: 1
+        },
+        '& .MuiSvgIcon-root': {
+          color: '#ffffff'
         }
       }}
     >
       {icon}
-      <Typography variant="subtitle2">{title}</Typography>
+      <Typography variant="subtitle2" sx={{ color: '#ffffff' }}>{title}</Typography>
     </AccordionSummary>
     <AccordionDetails>
       {children}
@@ -84,8 +87,7 @@ const FilterSidebar = ({ jobs, selectedFilters, onFilterChange, width }) => {
   };
 
   return (
-    <Paper
-      elevation={0}
+    <Box
       sx={{
         width: width || 280,
         height: '100vh',
@@ -115,13 +117,25 @@ const FilterSidebar = ({ jobs, selectedFilters, onFilterChange, width }) => {
       }}
     >
       <Box sx={{ p: 2 }}>
-        <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
-          Filters
-        </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+          <Typography variant="h6" sx={{ color: '#ffffff' }}>Filters</Typography>
+          <Button
+            startIcon={<RefreshIcon />}
+            onClick={() => handleFilterChange('reset')}
+            sx={{
+              color: '#c1ff72',
+              '&:hover': {
+                backgroundColor: 'rgba(193, 255, 114, 0.1)',
+              }
+            }}
+          >
+            Reset
+          </Button>
+        </Box>
 
         <FilterSection 
           title="Remote Work" 
-          icon={<PublicIcon color="action" />}
+          icon={<PublicIcon sx={{ color: '#c1ff72' }} />}
           defaultExpanded={true}
         >
           <FormControlLabel
@@ -129,15 +143,23 @@ const FilterSidebar = ({ jobs, selectedFilters, onFilterChange, width }) => {
               <Switch
                 checked={selectedFilters.remote}
                 onChange={(e) => handleFilterChange('remote', e.target.checked)}
+                sx={{
+                  '& .MuiSwitch-switchBase.Mui-checked': {
+                    color: '#c1ff72',
+                    '& + .MuiSwitch-track': {
+                      backgroundColor: '#c1ff72',
+                    },
+                  },
+                }}
               />
             }
-            label="Remote Only"
+            label={<Typography sx={{ color: '#ffffff' }}>Remote Only</Typography>}
           />
         </FilterSection>
 
         <FilterSection 
           title="Salary Range" 
-          icon={<PaidIcon color="action" />}
+          icon={<PaidIcon sx={{ color: '#c1ff72' }} />}
           defaultExpanded={true}
         >
           <Box sx={{ px: 2 }}>
@@ -165,7 +187,7 @@ const FilterSidebar = ({ jobs, selectedFilters, onFilterChange, width }) => {
 
         <FilterSection 
           title="Department" 
-          icon={<CategoryIcon color="action" />}
+          icon={<CategoryIcon sx={{ color: '#c1ff72' }} />}
         >
           <FormGroup>
             {departments.map(department => (
@@ -175,9 +197,17 @@ const FilterSidebar = ({ jobs, selectedFilters, onFilterChange, width }) => {
                   <Switch
                     checked={selectedFilters.departments?.includes(department)}
                     onChange={() => handleFilterChange('departments', department)}
+                    sx={{
+                      '& .MuiSwitch-switchBase.Mui-checked': {
+                        color: '#c1ff72',
+                        '& + .MuiSwitch-track': {
+                          backgroundColor: '#c1ff72',
+                        },
+                      },
+                    }}
                   />
                 }
-                label={department}
+                label={<Typography sx={{ color: '#ffffff' }}>{department}</Typography>}
               />
             ))}
           </FormGroup>
@@ -185,7 +215,7 @@ const FilterSidebar = ({ jobs, selectedFilters, onFilterChange, width }) => {
 
         <FilterSection 
           title="Companies" 
-          icon={<BusinessIcon color="action" />}
+          icon={<BusinessIcon sx={{ color: '#c1ff72' }} />}
         >
           <FormGroup>
             {companies.map(company => (
@@ -195,9 +225,17 @@ const FilterSidebar = ({ jobs, selectedFilters, onFilterChange, width }) => {
                   <Switch
                     checked={selectedFilters.companies?.includes(company)}
                     onChange={() => handleFilterChange('companies', company)}
+                    sx={{
+                      '& .MuiSwitch-switchBase.Mui-checked': {
+                        color: '#c1ff72',
+                        '& + .MuiSwitch-track': {
+                          backgroundColor: '#c1ff72',
+                        },
+                      },
+                    }}
                   />
                 }
-                label={company}
+                label={<Typography sx={{ color: '#ffffff' }}>{company}</Typography>}
               />
             ))}
           </FormGroup>
@@ -205,7 +243,7 @@ const FilterSidebar = ({ jobs, selectedFilters, onFilterChange, width }) => {
 
         <FilterSection 
           title="Locations" 
-          icon={<LocationOnIcon color="action" />}
+          icon={<LocationOnIcon sx={{ color: '#c1ff72' }} />}
         >
           <FormGroup>
             {locations.map(location => (
@@ -215,27 +253,23 @@ const FilterSidebar = ({ jobs, selectedFilters, onFilterChange, width }) => {
                   <Switch
                     checked={selectedFilters.locations?.includes(location)}
                     onChange={() => handleFilterChange('locations', location)}
+                    sx={{
+                      '& .MuiSwitch-switchBase.Mui-checked': {
+                        color: '#c1ff72',
+                        '& + .MuiSwitch-track': {
+                          backgroundColor: '#c1ff72',
+                        },
+                      },
+                    }}
                   />
                 }
-                label={location}
+                label={<Typography sx={{ color: '#ffffff' }}>{location}</Typography>}
               />
             ))}
           </FormGroup>
         </FilterSection>
-
-        <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
-          <Button
-            variant="outlined"
-            startIcon={<RefreshIcon />}
-            onClick={() => handleFilterChange('reset')}
-            size="small"
-            fullWidth
-          >
-            Reset Filters
-          </Button>
-        </Box>
       </Box>
-    </Paper>
+    </Box>
   );
 };
 
