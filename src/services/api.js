@@ -8,6 +8,66 @@ const COMPANIES = {
   CHARACTER: {
     name: 'Character',
     boardId: 'character'
+  },
+  DISTYL: {
+    name: 'Distyl',
+    boardId: 'distyl'
+  },
+  SYNTHFLOW: {
+    name: 'Synthflow',
+    boardId: 'synthflow'
+  },
+  PROTECTAI: {
+    name: 'Protect AI',
+    boardId: 'protectai'
+  },
+  PERSONAAI: {
+    name: 'Persona AI',
+    boardId: 'personainc.ai'
+  },
+  ALTIMATEAI: {
+    name: 'Altimate AI',
+    boardId: 'altimate'
+  },
+  ESSENTIALAI: {
+    name: 'Essential AI',
+    boardId: 'essentialai'
+  },
+  BASIS: {
+    name: 'Basis',
+    boardId: 'basis-ai'
+  },
+  ATARAXIS: {
+    name: 'Ataraxis',
+    boardId: 'ataraxis-ai'
+  },
+  ROSSUM: {
+    name: 'Rossum',
+    boardId: 'rossum.ai'
+  },
+  FIREWORKSAI: {
+    name: 'Fireworks AI',
+    boardId: 'fireworks.ai'
+  },
+  LEONARDOAI: {
+    name: 'Leonardo AI',
+    boardId: 'leonardo.ai'
+  },
+  MEDBILLAI: {
+    name: 'Medbill AI',
+    boardId: 'medbill-ai'
+  },
+  LUMINO: {
+    name: 'Lumino',
+    boardId: 'luminoAI'
+  },
+  SIENA: {
+    name: 'Siena',
+    boardId: 'siena'
+  },
+  HIPPOCRATICAI: {
+    name: 'Hippocratic AI',
+    boardId: 'Hippocratic%20AI'
   }
 };
 
