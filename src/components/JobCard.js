@@ -137,9 +137,12 @@ const JobCard = ({ job }) => {
             gutterBottom 
             sx={{ 
               color: '#c1ff72', 
-              mb: 0, 
+              mb: 0,
               fontSize: { xs: '1rem', sm: 'h6.fontSize' },
-              lineHeight: { xs: 1.2, sm: 1.5 }
+              lineHeight: { xs: 1.2, sm: 1.5 },
+              fontFamily: '"Space Grotesk Variable", "Space Grotesk", sans-serif',
+              fontWeight: 500,
+              letterSpacing: '-0.02em'
             }}
           >
             {job.title}
@@ -154,7 +157,10 @@ const JobCard = ({ job }) => {
               component="p" 
               sx={{ 
                 color: '#ffffff',
-                fontSize: { xs: '0.875rem', sm: 'body2.fontSize' }
+                fontSize: { xs: '0.875rem', sm: 'body2.fontSize' },
+                fontFamily: '"Space Grotesk Variable", "Space Grotesk", sans-serif',
+                fontWeight: 300,
+                letterSpacing: '-0.01em'
               }}
             >
               {job.companyName}
@@ -168,7 +174,10 @@ const JobCard = ({ job }) => {
               component="p" 
               sx={{ 
                 color: '#ffffff',
-                fontSize: { xs: '0.875rem', sm: 'body2.fontSize' }
+                fontSize: { xs: '0.875rem', sm: 'body2.fontSize' },
+                fontFamily: '"Space Grotesk Variable", "Space Grotesk", sans-serif',
+                fontWeight: 300,
+                letterSpacing: '-0.01em'
               }}
             >
               {job.location}
@@ -182,7 +191,10 @@ const JobCard = ({ job }) => {
               component="p" 
               sx={{ 
                 color: '#ffffff',
-                fontSize: { xs: '0.875rem', sm: 'body2.fontSize' }
+                fontSize: { xs: '0.875rem', sm: 'body2.fontSize' },
+                fontFamily: '"Space Grotesk Variable", "Space Grotesk", sans-serif',
+                fontWeight: 300,
+                letterSpacing: '-0.01em'
               }}
             >
               {job.salary}
@@ -213,7 +225,10 @@ const JobCard = ({ job }) => {
                 },
                 '&:hover': {
                   backgroundColor: '#e0e0e0'
-                }
+                },
+                fontFamily: '"Space Grotesk Variable", "Space Grotesk", sans-serif',
+                fontWeight: 300,
+                letterSpacing: '-0.01em'
               }}
             />
           )}
@@ -226,7 +241,10 @@ const JobCard = ({ job }) => {
                 color: '#000000',
                 '&:hover': {
                   backgroundColor: '#e0e0e0'
-                }
+                },
+                fontFamily: '"Space Grotesk Variable", "Space Grotesk", sans-serif',
+                fontWeight: 300,
+                letterSpacing: '-0.01em'
               }}
             />
           )}
@@ -239,7 +257,10 @@ const JobCard = ({ job }) => {
                 color: '#000000',
                 '&:hover': {
                   backgroundColor: '#e0e0e0'
-                }
+                },
+                fontFamily: '"Space Grotesk Variable", "Space Grotesk", sans-serif',
+                fontWeight: 300,
+                letterSpacing: '-0.01em'
               }}
             />
           )}

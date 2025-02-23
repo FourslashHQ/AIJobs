@@ -12,7 +12,9 @@ import {
   Fab,
   Button
 } from '@mui/material';
-import { fetchJobs } from './services/api';
+import {
+  fetchJobs
+} from './services/api';
 import FilterSidebar from './components/FilterSidebar';
 import SearchBar from './components/SearchBar';
 import JobList from './components/JobList';
