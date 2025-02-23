@@ -95,11 +95,11 @@ const getJobIcon = (title) => {
   return <BusinessIcon sx={{ fontSize: 28, color: '#c1ff72' }} />;
 };
 
-const JobCard = ({ job, onClick }) => {
+const JobCard = ({ job }) => {
   const theme = useTheme();
 
   const handleClick = () => {
-    if (onClick) onClick(job);
+    window.open(job.url, '_blank');
   };
 
   return (
