@@ -295,15 +295,7 @@ function App() {
                   }
                 }}
               >
-                <Box sx={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: 1,
-                  '@media (max-width: 600px)': {
-                    flexDirection: 'column',
-                    alignItems: 'flex-start'
-                  }
-                }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <Typography variant="h4" component="span" sx={{ 
                     fontWeight: 500, 
                     color: '#c1ff72',
@@ -313,33 +305,36 @@ function App() {
                   }}>
                     AIJobsNow
                   </Typography>
-                  <Box sx={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: 1,
+                  <Typography variant="h4" component="span" sx={{ 
+                    fontWeight: 500, 
+                    color: '#ffffff',
                     '@media (max-width: 600px)': {
-                      display: 'none'
+                      fontSize: '1.25rem'
                     }
                   }}>
-                    <Typography variant="h4" component="span" sx={{ fontWeight: 500, color: '#ffffff' }}>
-                      by{' '}
+                    by{' '}
+                  </Typography>
+                  <Link
+                    href="https://fourslash.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{ 
+                      textDecoration: 'none',
+                      '&:hover': {
+                        textDecoration: 'underline'
+                      }
+                    }}
+                  >
+                    <Typography variant="h4" component="span" sx={{ 
+                      fontWeight: 500, 
+                      color: '#ffffff',
+                      '@media (max-width: 600px)': {
+                        fontSize: '1.25rem'
+                      }
+                    }}>
+                      Fourslash
                     </Typography>
-                    <Link
-                      href="https://fourslash.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      sx={{ 
-                        textDecoration: 'none',
-                        '&:hover': {
-                          textDecoration: 'underline'
-                        }
-                      }}
-                    >
-                      <Typography variant="h4" component="span" sx={{ fontWeight: 500, color: '#ffffff' }}>
-                        Fourslash
-                      </Typography>
-                    </Link>
-                  </Box>
+                  </Link>
                 </Box>
               </Link>
             </Box>
@@ -352,29 +347,17 @@ function App() {
                 px: 1.5,
                 borderRadius: 1,
                 border: '1px solid',
-                borderColor: 'divider',
-                '@media (max-width: 600px)': {
-                  fontSize: '0.75rem'
-                }
+                borderColor: 'divider'
               }}
             >
               {`${filteredJobs.length} jobs available`}
             </Typography>
           </Box>
-          <Box sx={{ 
-            display: 'flex', 
-            alignItems: 'center',
-            gap: 1
-          }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton
               onClick={handleSortClick}
               color="inherit"
               aria-label="sort"
-              sx={{
-                '@media (max-width: 600px)': {
-                  padding: '8px'
-                }
-              }}
             >
               <SortIcon />
             </IconButton>
