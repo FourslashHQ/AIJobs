@@ -361,24 +361,6 @@ function App() {
             >
               <SortIcon />
             </IconButton>
-            {showScrollTop && (
-              <IconButton
-                onClick={scrollToTop}
-                color="inherit"
-                aria-label="scroll to top"
-                sx={{ 
-                  display: { xs: 'flex', sm: 'none' },
-                  bgcolor: '#c1ff72',
-                  color: '#000000',
-                  padding: '8px',
-                  '&:hover': {
-                    bgcolor: '#9ecc5c'
-                  }
-                }}
-              >
-                <KeyboardArrowUpIcon />
-              </IconButton>
-            )}
           </Box>
         </Box>
 
@@ -434,7 +416,7 @@ function App() {
           size="large"
           sx={{
             position: 'fixed',
-            bottom: { xs: 80, sm: 16 }, 
+            bottom: { xs: 100, sm: 16 }, 
             right: 16,
             bgcolor: '#c1ff72',
             zIndex: 1000,
