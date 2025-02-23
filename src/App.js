@@ -96,17 +96,71 @@ function App() {
     });
   };
 
+  const getSearchScore = (job, query) => {
+    const normalizedQuery = query.toLowerCase().trim();
+    const words = normalizedQuery.split(/\s+/);
+    let score = 0;
+
+    // Exact title match (highest priority)
+    if (job.title.toLowerCase() === normalizedQuery) {
+      score += 100;
+    }
+
+    // Title contains exact query
+    if (job.title.toLowerCase().includes(normalizedQuery)) {
+      score += 50;
+    }
+
+    // Individual word matches in title (high priority)
+    words.forEach(word => {
+      if (job.title.toLowerCase().includes(word)) {
+        score += 30;
+      }
+    });
+
+    // Department exact match
+    if (job.department && job.department.toLowerCase() === normalizedQuery) {
+      score += 25;
+    }
+
+    // Department contains query
+    if (job.department && job.department.toLowerCase().includes(normalizedQuery)) {
+      score += 15;
+    }
+
+    // Description matches (lower priority)
+    if (job.description) {
+      // Exact phrase match in description
+      if (job.description.toLowerCase().includes(normalizedQuery)) {
+        score += 10;
+      }
+
+      // Individual word matches in description
+      words.forEach(word => {
+        if (job.description.toLowerCase().includes(word)) {
+          score += 5;
+        }
+      });
+    }
+
+    return score;
+  };
+
   const applyFiltersAndSort = (jobs, filters, searchQuery, sortOption) => {
     let filteredJobs = [...jobs];
 
-    // Apply search filter
+    // Apply search filter with scoring
     if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      filteredJobs = filteredJobs.filter(job =>
-        job.title.toLowerCase().includes(query) ||
-        job.description.toLowerCase().includes(query) ||
-        (job.department && job.department.toLowerCase().includes(query))
-      );
+      const query = searchQuery.toLowerCase().trim();
+      
+      // Filter and score jobs
+      filteredJobs = filteredJobs
+        .map(job => ({
+          ...job,
+          searchScore: getSearchScore(job, query)
+        }))
+        .filter(job => job.searchScore > 0) // Only keep jobs with matches
+        .sort((a, b) => b.searchScore - a.searchScore); // Sort by search relevance
     }
 
     // Apply company filter
@@ -135,7 +189,7 @@ function App() {
       filteredJobs = filteredJobs.filter(job => job.remote);
     }
 
-    // Apply salary filter only if it's different from the default range
+    // Apply salary filter
     if (filters.salary && (filters.salary[0] > 0 || filters.salary[1] < 500000)) {
       const [minSalary, maxSalary] = filters.salary;
       filteredJobs = filteredJobs.filter(job => {
@@ -144,8 +198,8 @@ function App() {
       });
     }
 
-    // Apply sorting
-    if (sortOption) {
+    // Apply sorting only if not already sorted by search relevance
+    if (sortOption && !searchQuery) {
       switch (sortOption) {
         case 'alphabetical':
           filteredJobs.sort((a, b) => a.title.localeCompare(b.title));
