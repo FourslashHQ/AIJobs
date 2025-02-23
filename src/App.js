@@ -267,14 +267,21 @@ function App() {
         sx={{
           flexGrow: 1,
           p: { xs: 2, sm: 3 },
-          width: { xs: '100%', sm: `calc(100% - ${DRAWER_WIDTH}px)` }
+          width: { xs: '100%', sm: `calc(100% - ${DRAWER_WIDTH}px)` },
+          pb: { xs: '100px', sm: 3 },
+          position: 'relative'
         }}
       >
         <Box sx={{ 
           display: 'flex', 
           justifyContent: 'space-between',
           alignItems: 'center', 
-          mb: 3
+          mb: 3,
+          position: 'sticky',
+          top: 0,
+          bgcolor: 'background.default',
+          zIndex: 1100,
+          py: 1
         }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flex: 1 }}>
             <Box sx={{ display: 'flex', justifyContent: 'center', flex: 1 }}>
@@ -390,16 +397,17 @@ function App() {
           size="large"
           sx={{
             position: 'fixed',
-            bottom: 16,
-            right: 16,
+            bottom: { xs: 16, sm: 16 },
+            right: { xs: 16, sm: 16 },
             bgcolor: '#c1ff72',
+            zIndex: 1000,
             '&:hover': {
               bgcolor: '#9ecc5c'
             }
           }}
           onClick={scrollToTop}
         >
-          <KeyboardArrowUpIcon sx={{ fontSize: 32, color: '#000000' }} />
+          <KeyboardArrowUpIcon />
         </Fab>
       )}
     </Box>
