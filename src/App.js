@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Box,
   Typography,
@@ -38,7 +38,6 @@ function App() {
     remote: false,
     salary: [0, 500000]
   });
-  const [filteredJobs, setFilteredJobs] = useState([]);
   const [sortOption, setSortOption] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -66,7 +65,6 @@ function App() {
         const response = await fetchJobs();
         if (response && response.jobs) {
           setJobs(response.jobs);
-          setFilteredJobs(response.jobs);
         } else {
           throw new Error('Invalid response format');
         }
@@ -97,53 +95,90 @@ function App() {
   };
 
   const getSearchScore = (job, query) => {
+    if (!query) return 0;
+    
     const normalizedQuery = query.toLowerCase().trim();
+    if (!normalizedQuery) return 0;
+    
     const words = normalizedQuery.split(/\s+/);
     let score = 0;
 
+    // Cache lowercase values
+    const titleLower = job.title.toLowerCase();
+    const departmentLower = job.department?.toLowerCase() || '';
+    const descriptionLower = job.description?.toLowerCase() || '';
+
     // Exact title match (highest priority)
-    if (job.title.toLowerCase() === normalizedQuery) {
-      score += 100;
+    if (titleLower === normalizedQuery) {
+      return 100; // Return immediately for exact matches
     }
 
     // Title contains exact query
-    if (job.title.toLowerCase().includes(normalizedQuery)) {
+    if (titleLower.includes(normalizedQuery)) {
       score += 50;
     }
 
     // Individual word matches in title (high priority)
-    words.forEach(word => {
-      if (job.title.toLowerCase().includes(word)) {
+    for (const word of words) {
+      if (titleLower.includes(word)) {
         score += 30;
       }
-    });
+    }
 
     // Department exact match
-    if (job.department && job.department.toLowerCase() === normalizedQuery) {
+    if (departmentLower === normalizedQuery) {
       score += 25;
     }
 
     // Department contains query
-    if (job.department && job.department.toLowerCase().includes(normalizedQuery)) {
+    if (departmentLower.includes(normalizedQuery)) {
       score += 15;
     }
 
     // Description matches (lower priority)
-    if (job.description) {
+    if (descriptionLower) {
       // Exact phrase match in description
-      if (job.description.toLowerCase().includes(normalizedQuery)) {
+      if (descriptionLower.includes(normalizedQuery)) {
         score += 10;
       }
 
-      // Individual word matches in description
-      words.forEach(word => {
-        if (job.description.toLowerCase().includes(word)) {
+      // Individual word matches in description (limit to first 1000 chars for performance)
+      const truncatedDesc = descriptionLower.slice(0, 1000);
+      for (const word of words) {
+        if (truncatedDesc.includes(word)) {
           score += 5;
         }
-      });
+      }
     }
 
     return score;
+  };
+
+  const extractSalaryValue = (salaryString, useHigherValue = false) => {
+    if (!salaryString || typeof salaryString !== 'string') return 0;
+    
+    // First check if it's hourly rate
+    if (salaryString.includes('per hour')) {
+      return 0; // Skip hourly rates for now
+    }
+    
+    // Extract numbers and their K suffixes together
+    const matches = salaryString.match(/(\d+\.?\d*)K?/g);
+    if (!matches) return 0;
+    
+    // Convert each match to a number, handling the K multiplier
+    const salaryNumbers = matches.map(match => {
+      const hasK = match.endsWith('K');
+      const num = parseFloat(match.replace('K', ''));
+      return hasK ? num * 1000 : num;
+    });
+    
+    // For a salary range, use either the higher or lower value based on sort direction
+    if (salaryNumbers.length > 1) {
+      return useHigherValue ? Math.max(...salaryNumbers) : Math.min(...salaryNumbers);
+    }
+    
+    return salaryNumbers[0] || 0;
   };
 
   const applyFiltersAndSort = (jobs, filters, searchQuery, sortOption) => {
@@ -193,30 +228,30 @@ function App() {
     if (filters.salary && (filters.salary[0] > 0 || filters.salary[1] < 500000)) {
       const [minSalary, maxSalary] = filters.salary;
       filteredJobs = filteredJobs.filter(job => {
-        const salary = job.salary ? parseInt(job.salary.replace(/[^0-9]/g, '')) : 0;
+        const salary = extractSalaryValue(job.salary);
         return salary >= minSalary && salary <= maxSalary;
       });
     }
 
-    // Apply sorting only if not already sorted by search relevance
-    if (sortOption && !searchQuery) {
+    // Apply sorting if specified
+    if (sortOption) {
       switch (sortOption) {
-        case 'alphabetical':
-          filteredJobs.sort((a, b) => a.title.localeCompare(b.title));
-          break;
         case 'salary-high-low':
           filteredJobs.sort((a, b) => {
-            const salaryA = a.salary ? parseInt(a.salary.replace(/[^0-9]/g, '')) : 0;
-            const salaryB = b.salary ? parseInt(b.salary.replace(/[^0-9]/g, '')) : 0;
+            const salaryA = extractSalaryValue(a.salary, true);
+            const salaryB = extractSalaryValue(b.salary, true);
             return salaryB - salaryA;
           });
           break;
         case 'salary-low-high':
           filteredJobs.sort((a, b) => {
-            const salaryA = a.salary ? parseInt(a.salary.replace(/[^0-9]/g, '')) : 0;
-            const salaryB = b.salary ? parseInt(b.salary.replace(/[^0-9]/g, '')) : 0;
+            const salaryA = extractSalaryValue(a.salary, false);
+            const salaryB = extractSalaryValue(b.salary, false);
             return salaryA - salaryB;
           });
+          break;
+        case 'alphabetical':
+          filteredJobs.sort((a, b) => a.title.localeCompare(b.title));
           break;
         default:
           break;
@@ -226,28 +261,16 @@ function App() {
     return filteredJobs;
   };
 
-  useEffect(() => {
-    // Only apply filters if there are actual filters or search terms
-    const hasActiveFilters = 
-      selectedFilters.companies.length > 0 ||
-      selectedFilters.locations.length > 0 ||
-      selectedFilters.departments.length > 0 ||
-      selectedFilters.remote ||
-      selectedFilters.salary[0] > 0 ||
-      selectedFilters.salary[1] < 500000 ||
-      searchQuery ||
-      sortOption;
-
-    if (hasActiveFilters) {
-      const filteredResults = applyFiltersAndSort(jobs, selectedFilters, searchQuery, sortOption);
-      setFilteredJobs(filteredResults);
-    } else {
-      setFilteredJobs(jobs);
-    }
+  const filteredAndSortedJobs = useMemo(() => {
+    return applyFiltersAndSort(jobs, selectedFilters, searchQuery, sortOption);
   }, [jobs, selectedFilters, searchQuery, sortOption]);
 
   const handleSearchChange = (query) => {
     setSearchQuery(query);
+    // Clear sort option when searching
+    if (query) {
+      setSortOption('');
+    }
   };
 
   const handleFilterChange = (filters) => {
@@ -255,7 +278,7 @@ function App() {
   };
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default', flexDirection: { xs: 'column', sm: 'row' } }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default', color: 'text.primary' }}>
       <FilterSidebar
         jobs={jobs}
         selectedFilters={selectedFilters}
@@ -350,14 +373,17 @@ function App() {
                 borderColor: 'divider'
               }}
             >
-              {`${filteredJobs.length} jobs available`}
+              {`${filteredAndSortedJobs.length} jobs available`}
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton
               onClick={handleSortClick}
-              color="inherit"
-              aria-label="sort"
+              sx={{
+                bgcolor: 'background.paper',
+                color: sortOption ? '#c1ff72' : 'inherit',
+                '&:hover': { bgcolor: 'action.hover' }
+              }}
             >
               <SortIcon />
             </IconButton>
@@ -373,38 +399,46 @@ function App() {
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={handleSortClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
         >
           <MenuItem 
-            onClick={() => handleSortOptionSelect('alphabetical')}
-            selected={sortOption === 'alphabetical'}
+            onClick={() => handleSortOptionSelect(sortOption === 'alphabetical' ? '' : 'alphabetical')}
+            sx={{ color: sortOption === 'alphabetical' ? '#c1ff72' : 'inherit' }}
           >
             <ListItemIcon>
-              <SortByAlphaIcon fontSize="small" />
+              <SortByAlphaIcon sx={{ color: sortOption === 'alphabetical' ? '#c1ff72' : 'inherit' }} />
             </ListItemIcon>
-            <ListItemText>Alphabetical Order (A-Z)</ListItemText>
+            <ListItemText>Alphabetical</ListItemText>
           </MenuItem>
           <MenuItem 
-            onClick={() => handleSortOptionSelect('salary-low-high')}
-            selected={sortOption === 'salary-low-high'}
+            onClick={() => handleSortOptionSelect(sortOption === 'salary-low-high' ? '' : 'salary-low-high')}
+            sx={{ color: sortOption === 'salary-low-high' ? '#c1ff72' : 'inherit' }}
           >
             <ListItemIcon>
-              <TrendingUpIcon fontSize="small" />
+              <TrendingUpIcon sx={{ color: sortOption === 'salary-low-high' ? '#c1ff72' : 'inherit' }} />
             </ListItemIcon>
-            <ListItemText>Salary Range (Low to High)</ListItemText>
+            <ListItemText>Salary: Low to High</ListItemText>
           </MenuItem>
           <MenuItem 
-            onClick={() => handleSortOptionSelect('salary-high-low')}
-            selected={sortOption === 'salary-high-low'}
+            onClick={() => handleSortOptionSelect(sortOption === 'salary-high-low' ? '' : 'salary-high-low')}
+            sx={{ color: sortOption === 'salary-high-low' ? '#c1ff72' : 'inherit' }}
           >
             <ListItemIcon>
-              <TrendingDownIcon fontSize="small" />
+              <TrendingDownIcon sx={{ color: sortOption === 'salary-high-low' ? '#c1ff72' : 'inherit' }} />
             </ListItemIcon>
-            <ListItemText>Salary Range (High to Low)</ListItemText>
+            <ListItemText>Salary: High to Low</ListItemText>
           </MenuItem>
         </Menu>
 
         <JobList 
-          jobs={filteredJobs}
+          jobs={filteredAndSortedJobs}
           loading={loading}
           error={error}
         />

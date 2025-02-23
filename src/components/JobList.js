@@ -47,8 +47,8 @@ const JobList = ({ jobs, loading, error }) => {
     <Box sx={{
       display: 'grid',
       gridTemplateColumns: {
-        xs: '1fr',  
-        sm: 'repeat(auto-fill, minmax(300px, 1fr))' 
+        xs: '1fr',
+        sm: 'repeat(auto-fill, minmax(300px, 1fr))'
       },
       gap: { xs: 2, sm: 3 },
       py: { xs: 2, sm: 3 }
